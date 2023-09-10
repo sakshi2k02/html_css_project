@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Code Editor</title>
+    <style>
+        /* CSS for the code editor */
+        #editor {
+            width: 100%;
+            height: 200px;
+        }
+        /* CSS for the output container */
+        #output {
+            background-color: gray;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%;
+            height: 300px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Online Code Editor</h1>
+    <p>Enter your code below:</p>
+
+    <!-- Code editor textarea -->
+    <textarea id="editor"></textarea>
+
+    <!-- Run button -->
+    <button onclick="runCode()">Run Code</button>
+
+    <!-- Output container -->
+    <div id="output"></div>
+
+    <!-- JavaScript to execute the code -->
+    <script>
+        function runCode() {
+            const code = document.getElementById('editor').value;
+            const outputContainer = document.getElementById('output');
+
+            // Clear the output container
+            outputContainer.innerHTML = '';
+
+            try {
+                // Create an iframe to run the code
+                const iframe = document.createElement('iframe');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+
+                // Append the iframe to the output container
+                outputContainer.appendChild(iframe);
+
+                // Write the code to the iframe and execute it
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write(code);
+                iframeDoc.close();
+            } catch (error) {
+                // Display any errors in the output
+                outputContainer.innerText = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
